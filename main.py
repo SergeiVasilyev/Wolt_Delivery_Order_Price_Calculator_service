@@ -26,6 +26,11 @@ HOME_ASSIGNMENT_API_URL = "https://consumer-api.development.dev.woltapi.com/home
 
 @app.get(DELEVERY_ORDER_PRICE_API_URL)
 def read_item(venue_slug: str, cart_value: int, user_lat: float, user_lon: float):
+    if cart_value < 0:
+        raise HTTPException(status_code=400, detail="Invalid input parameters. Cart value cannot be negative.")
+    if user_lat < -90 or user_lat > 90 or user_lon < -180 or user_lon > 180:
+        raise HTTPException(status_code=400, detail="Invalid input parameters. Latitude must be between -90 and 90 and longitude must be between -180 and 180.")
+
     coordinates = get_coordinates({"venue_slug": venue_slug, "url": HOME_ASSIGNMENT_API_URL})
     dynamic_data = get_dynamic_data({"venue_slug": venue_slug, "url": HOME_ASSIGNMENT_API_URL})
 
