@@ -28,10 +28,8 @@ HOME_ASSIGNMENT_API_URL = "https://consumer-api.development.dev.woltapi.com/home
 def read_item(venue_slug: str, cart_value: int, user_lat: float, user_lon: float):
     coordinates = get_coordinates({"venue_slug": venue_slug, "url": HOME_ASSIGNMENT_API_URL})
     dynamic_data = get_dynamic_data({"venue_slug": venue_slug, "url": HOME_ASSIGNMENT_API_URL})
-    print(dynamic_data, coordinates)
 
     distance = calculate_distance(user_lat, user_lon, coordinates[1], coordinates[0])
-    print('distance', distance)
     
     delivery_fee = calculate_delivery_fee(distance, dynamic_data)   
     small_order_surcharge = calculate_small_order_surcharge(cart_value, dynamic_data["order_minimum_no_surcharge"])
