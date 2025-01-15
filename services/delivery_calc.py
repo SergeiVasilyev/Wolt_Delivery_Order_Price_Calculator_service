@@ -1,7 +1,9 @@
 import math
 from fastapi import HTTPException
+from typeguard import typechecked
 
 
+@typechecked
 def calculate_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:    
     """
     Calculates the great-circle distance between two points on the Earth's surface.
@@ -32,7 +34,7 @@ def calculate_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> fl
 
     return distance
     
-
+@typechecked
 def calculate_delivery_fee(distance: float, dynamic_data: dict) -> int:
     """
     Calculates the delivery fee based on the distance and dynamic data.
@@ -42,9 +44,10 @@ def calculate_delivery_fee(distance: float, dynamic_data: dict) -> int:
     :return: The delivery fee.
     """
 
-    if distance > dynamic_data["distance_ranges"][-1]["min"]:
+    if distance >= dynamic_data["distance_ranges"][-1]["min"]:
         raise HTTPException(status_code=400, detail=f"Distance exceeds maximum limit of {dynamic_data['distance_ranges'][-1]['min']} meters")
 
+    a, b = 0, 0
     for n in dynamic_data["distance_ranges"][:-1]:
         if n["min"] <= distance < n["max"]:
             a, b = n["a"], n["b"]
@@ -55,6 +58,7 @@ def calculate_delivery_fee(distance: float, dynamic_data: dict) -> int:
     return delivery_fee
     
 
+@typechecked
 def calculate_small_order_surcharge(cart_value: int, order_minimum_no_surcharge: int) -> int:
     """
     Calculates the small order surcharge based on the cart value.
@@ -74,6 +78,7 @@ def calculate_small_order_surcharge(cart_value: int, order_minimum_no_surcharge:
     return small_order_surcharge
 
 
+@typechecked
 def calculate_total_price(cart_value: int, delivery_fee: int, small_order_surcharge: int) -> int:
     """
     Calculates the total price based on the cart value, delivery fee, and small order surcharge.
@@ -83,5 +88,4 @@ def calculate_total_price(cart_value: int, delivery_fee: int, small_order_surcha
     :param small_order_surcharge: The small order surcharge.
     :return: The total price.
     """
-
     return cart_value + delivery_fee + small_order_surcharge
