@@ -5,7 +5,8 @@ from services.wolt_api import get_coordinates, get_dynamic_data
 from error_handlers import (
     http_exception_handler,
     validation_exception_handler,
-    global_exception_handler
+    global_exception_handler,
+    type_error_handler
 )
 
 
@@ -16,6 +17,7 @@ app = FastAPI()
 app.add_exception_handler(HTTPException, http_exception_handler)
 app.add_exception_handler(RequestValidationError, validation_exception_handler)
 app.add_exception_handler(Exception, global_exception_handler)
+app.add_exception_handler(TypeError, type_error_handler)
 
 
 DELEVERY_ORDER_PRICE_API_URL = "/api/v1/delivery-order-price/"

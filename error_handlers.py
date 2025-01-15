@@ -32,3 +32,15 @@ async def global_exception_handler(request: Request, exc: Exception):
             "errors": [{"code": "INTERNAL_ERROR", "message": str(exc)}]
         },
     )
+
+async def type_error_handler(request: Request, exc: TypeError):
+    return JSONResponse(
+        status_code=400,
+        content={
+            "success": False,
+            "errors": [
+                {"code": "TYPE_ERROR", "message": str(exc)}
+            ]
+        },
+    )
+
