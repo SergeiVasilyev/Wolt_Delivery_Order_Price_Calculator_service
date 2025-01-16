@@ -32,7 +32,7 @@ def calculate_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> fl
     a = math.sqrt((1 - math.cos(dlat) + math.cos(lat1) * math.cos(lat2) * (1 - math.cos(dlon))) / 2)
     distance = 2 * R * math.asin(a)
 
-    return distance
+    return round(distance)
     
 @typechecked
 def calculate_delivery_fee(distance: float, dynamic_data: dict) -> int:
