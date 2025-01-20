@@ -8,7 +8,7 @@ https://github.com/woltapp/backend-internship-2025?tab=readme-ov-file
 # Project deployed on the Render Cloud Platform
 https://wolt-delivery-order-price-calculator.onrender.com/api/v1/delivery-order-price/?venue_slug=home-assignment-venue-helsinki&cart_value=1000&user_lat=60.175&user_lon=24.93087
 
-*Sometimes the Render service takes some time to wake up and start the program.*
+*Sometimes the render.com platform takes some time to wake up and start the program.*
 
 # Tech Stack
 - Python
